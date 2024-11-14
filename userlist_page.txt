@@ -1,0 +1,33 @@
+import { UseUser } from '../Config/UserContext';
+import './UserList.css'
+import { useNavigate } from 'react-router-dom'
+
+const UserList = () => {
+    const u_context=UseUser();
+    const u_list=u_context.userlist;
+    const nav=useNavigate();
+
+    const handleClick=(username) => {
+        nav("/user-details",{state:{uname:username}})
+    }
+
+    return(
+        <div>
+            <h1 align="center">User List</h1>
+            <div className="userlist">
+            {
+            u_list.map((person)=>(                
+                    <div className="user">
+                        <center>
+                            <h3>{person.Name}</h3>                        
+                            <img src={person.Photo} alt={person.Name} onClick={()=>handleClick(person.Name)} height="200" width="200"/>
+                        </center>
+                    </div>
+                ))
+}
+            </div>
+        </div>
+    );
+}
+
+export default UserList;
